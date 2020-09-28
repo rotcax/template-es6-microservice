@@ -1,4 +1,5 @@
 import express from 'express';
+import routes from '../routes';
 import { json, urlencoded } from 'body-parser';
 
 const startServer = () => {
@@ -7,9 +8,7 @@ const startServer = () => {
 	app.use(urlencoded({ extended: false }));
 	app.use(json());
 
-	app.use('/auth', (req, res) => {
-		res.send('auth microservice');
-	});
+	app.use('/auth', routes);
 
 	const port = process.env.PORT || 3001;
 
