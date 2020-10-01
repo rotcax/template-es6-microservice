@@ -1,7 +1,8 @@
 FROM node:12-alpine
 
-RUN mkdir /usr/app
-WORKDIR /usr/app
-COPY ./package.json /usr/app
-RUN yarn install
-CMD yarn start
+RUN mkdir /tcw
+WORKDIR /tcw
+COPY ./package.json /tcw
+COPY ./yarn.lock /tcw
+RUN yarn
+CMD yarn start:dev

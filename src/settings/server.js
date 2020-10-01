@@ -4,7 +4,7 @@ import { json, urlencoded } from 'body-parser';
 import { errorHandler } from '../middleware';
 
 const startServer = () => {
-	const { notFound } = errorHandler;
+	const { notFound, httpError } = errorHandler;
 	const app = express();
 
 	app.use(urlencoded({ extended: false }));
@@ -13,9 +13,13 @@ const startServer = () => {
 	app.use('/auth', routes);
 
 	app.use(notFound);
+	app.use(httpError);
 
-	const port = process.env.PORT || 3001;
-	app.listen(port, () => console.log(`Express server listening on port ${port}`));
+	const { PORT, HOST } = process.env;
+	const port = PORT || 3001;
+	const host = HOST || '127.0.0.1';
+
+	app.listen(port, host, () => console.log(`Express server listening on port ${port}`));
 }
 
 export default startServer;
